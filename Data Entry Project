@@ -1,0 +1,51 @@
+from csv import *
+from tkinter import *
+from tkinter import messagebox
+window=Tk()
+window.title("Data Entry")
+main_list=[ ]
+def Clear():
+    nameentry.delete(0,END)
+    ageentry.delete(0,END)
+    contactentry.delete(0,END)
+    groupentry.delete(0,END)
+def Add():
+    lst=[nameentry.get(),ageentry.get(),contactentry.get(),groupentry.get()]
+    main_list.append(lst)
+    messagebox.showinfo("Information","The file has been added. ")
+def save():
+    #with open("My_data_entry.csv","w") as file:# <--- this is same as file=open("my_first file.csv","w")
+    file=open("my_first_file.csv","w")
+    Writer=writer(file)
+    fieldname=["Name","Age","Contact","Bloodgroup"]
+    Writer.writerow(fieldname)
+    Writer.writerows(main_list)
+    messagebox.showinfo("Information","The file has been saved. ")
+    file.close()
+def destroy():
+    window.destroy()
+name=Label(window,text="Name : ")
+age=Label(window,text="Age : ")
+contact=Label(window,text="Contact : ")
+group=Label(window,text="Blood Group : ")
+nameentry=Entry(window,width=30,borderwidth=5)
+ageentry=Entry(window,width=30,borderwidth=5)
+contactentry=Entry(window,width=30,borderwidth=5)
+groupentry=Entry(window,width=30,borderwidth=5)
+save=Button(window,text="Save",padx=20,pady=7,command=save)
+add=Button(window,text="Add",padx=20,pady=7,command=Add)
+clear=Button(window,text="Clear",padx=20,pady=7,command=Clear)
+exit=Button(window,text="Exit",padx=20,pady=7,command=destroy)
+name.grid(row=0,column=0)
+age.grid(row=1,column=0)
+contact.grid(row=2,column=0)
+group.grid(row=3,column=0)
+nameentry.grid(row=0,column=1)
+ageentry.grid(row=1,column=1)
+contactentry.grid(row=2,column=1)
+groupentry.grid(row=3,column=1)
+save.grid(row=5,column=0)
+clear.grid(row=4,column=1)
+add.grid(row=4,column=0)
+exit.grid(row=5,column=1)
+window.mainloop()
